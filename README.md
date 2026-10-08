@@ -34,3 +34,7 @@ Course → Topic → Subtopic → Micro-topic
 Performance & Completion Feedback
       ↓
 Adaptive Rerouting
+
+## Deployment
+
+Frontend deployed with Vercel.
