@@ -325,55 +325,40 @@ function Journey({
   /*
    * Get node status.
    */
-  const getNodeStatus = (node) => {
-    if (
-      completedSet.has(node.id)
-    ) {
-      return "completed";
-    }
+ const getNodeStatus = (node) => {
+  if (completedSet.has(node.id)) {
+    return "completed";
+  }
 
-    if (
-      knownSet.has(node.id)
-    ) {
-      return "known";
-    }
+  if (knownSet.has(node.id)) {
+    return "known";
+  }
 
-    if (
-      progress.current === node.id
-    ) {
-      return "current";
-    }
+  if (progress.current === node.id) {
+    return "current";
+  }
 
-    /*
-     * Topics become available when at least
-     * one of their leaf units is reachable.
-     */
-    if (node.level === "topic") {
-      return "available";
-    }
+  const currentIndex = allNodes.findIndex(
+    (item) => item.id === progress.current
+  );
 
-    const currentIndex =
-      leafNodes.findIndex(
-        (item) =>
-          item.id === progress.current
-      );
+  const nodeIndex = allNodes.findIndex(
+    (item) => item.id === node.id
+  );
 
-    const nodeIndex =
-      leafNodes.findIndex(
-        (item) =>
-          item.id === node.id
-      );
+  // If the saved current node is not part of
+  // the current roadmap, unlock the first node.
+  if (currentIndex === -1) {
+    return nodeIndex === 0 ? "available" : "locked";
+  }
 
-    if (
-      currentIndex !== -1 &&
-      nodeIndex !== -1 &&
-      nodeIndex <= currentIndex + 2
-    ) {
-      return "available";
-    }
+  // Allow the next two learning units.
+  if (nodeIndex <= currentIndex + 2) {
+    return "available";
+  }
 
-    return "locked";
-  };
+  return "locked";
+};
 
   /*
    * Open a topic/course.
