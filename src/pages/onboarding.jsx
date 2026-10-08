@@ -1,4 +1,6 @@
 import { useState } from "react";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function Onboarding({ onComplete }) {
   const [form, setForm] = useState({
@@ -70,8 +72,7 @@ export default function Onboarding({ onComplete }) {
         profile
       );
 
-      const response = await fetch(
-        "http://localhost:5000/api/generate-roadmap",
+      const response = await fetch(`${API_BASE_URL}/api/generate-roadmap`, 
         {
           method: "POST",
 

@@ -9,7 +9,11 @@ import { buildLearningStrategy } from "./decision/decisionEngine.js";
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`PathForge AI backend running on port ${PORT}`);
+});
 
 // --------------------------------------------------
 // CONFIGURATION
@@ -797,9 +801,10 @@ app.use(
 
 app.listen(
   PORT,
+  "0.0.0.0",
   () => {
     console.log(
-      `PathForge AI backend running on http://localhost:${PORT}`
+      `PathForge AI backend running on port ${PORT}`
     );
   }
 );

@@ -14,7 +14,10 @@ export function predictLearner(profile) {
       "predict_api.py"
     );
 
-    const python = spawn("python", [scriptPath]);
+    const pythonCommand =
+  process.platform === "win32" ? "python" : "python3";
+
+const python = spawn(pythonCommand, [scriptPath]);
 
     let output = "";
     let errorOutput = "";
